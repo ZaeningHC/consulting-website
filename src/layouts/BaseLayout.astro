@@ -1,0 +1,24 @@
+---
+import '../styles/global.css'
+const { title = "My Astro Site" } = Astro.props;
+---
+
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-gray-100 text-gray-900">
+    <nav class="p-4 bg-white shadow">
+      <a class="mr-4 text-blue-600 hover:underline" href="/">Home</a>
+      <a class="mr-4 text-blue-600 hover:underline" href="/about">About</a>
+      <a class="mr-4 text-blue-600 hover:underline" href="/services">Services</a>
+      <a class="text-blue-600 hover:underline" href="/contact">Contact</a>
+    </nav>
+
+    <main class="p-6">
+      <slot />
+    </main>
+  </body>
+</html>
