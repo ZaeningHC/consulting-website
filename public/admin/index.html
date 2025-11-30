@@ -3,10 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <title>CMS - Consulting Website</title>
-    <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
   </head>
   <body>
-    <!-- REQUIRED: CMS will mount here -->
+    <!-- REQUIRED for CMS -->
     <div id="nc-root"></div>
+
+    <!-- CMS script must be AFTER body content -->
+    <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
   </body>
 </html>
