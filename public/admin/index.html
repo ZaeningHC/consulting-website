@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>CMS - Consulting Website</title>
+    <title>CMS - Astro Consulting</title>
   </head>
   <body>
     <div id="nc-root"></div>
@@ -10,23 +10,21 @@
     <!-- Netlify Identity Widget -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script>
-      window.netlifyIdentity = window.netlifyIdentity || {};
-      netlifyIdentity.init();
+      // Initialize Identity
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.init();
+      }
 
-      // Detect invite/recovery token
+      // Prevent CMS from redirecting immediately
       const hash = window.location.hash;
       const isInviteOrRecovery = hash.includes("invite_token") || hash.includes("recovery_token");
 
-      netlifyIdentity.on("init", user => {
-        if (!user && !isInviteOrRecovery) {
-          // User is not logged in and no token: show login button
-          // do nothing, CMS will show login button
+      // Wait for Identity to handle token
+      window.addEventListener("DOMContentLoaded", () => {
+        if (!isInviteOrRecovery && window.netlifyIdentity.currentUser() == null) {
+          // Not logged in and no token: CMS login will show
+          console.log("CMS login will show.");
         }
-      });
-
-      netlifyIdentity.on("login", () => {
-        // Redirect to /admin after login
-        window.location.href = "/admin/";
       });
     </script>
 
