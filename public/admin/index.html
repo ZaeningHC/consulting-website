@@ -10,30 +10,27 @@
     <!-- Netlify Identity Widget -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.init();
+      window.netlifyIdentity = window.netlifyIdentity || {};
+      netlifyIdentity.init();
 
-        // Check if user is logged in
-        window.netlifyIdentity.on("init", user => {
-          if (!user) {
-            // Not logged in yet
-            window.netlifyIdentity.on("login", () => {
-              // After login, initialize CMS
-              loadCMS();
-            });
-          } else {
-            // Already logged in
-            loadCMS();
-          }
-        });
-      }
+      // Detect invite/recovery token
+      const hash = window.location.hash;
+      const isInviteOrRecovery = hash.includes("invite_token") || hash.includes("recovery_token");
 
-      function loadCMS() {
-        const script = document.createElement("script");
-        script.src = "https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js";
-        script.defer = true;
-        document.body.appendChild(script);
-      }
+      netlifyIdentity.on("init", user => {
+        if (!user && !isInviteOrRecovery) {
+          // User is not logged in and no token: show login button
+          // do nothing, CMS will show login button
+        }
+      });
+
+      netlifyIdentity.on("login", () => {
+        // Redirect to /admin after login
+        window.location.href = "/admin/";
+      });
     </script>
+
+    <!-- Netlify CMS -->
+    <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
   </body>
 </html>
