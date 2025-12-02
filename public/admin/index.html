@@ -3,32 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <title>CMS - Astro Consulting</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
-    <div id="nc-root"></div>
-
-    <!-- Netlify Identity Widget -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script>
-      // Initialize Identity
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.init();
-      }
-
-      // Prevent CMS from redirecting immediately
-      const hash = window.location.hash;
-      const isInviteOrRecovery = hash.includes("invite_token") || hash.includes("recovery_token");
-
-      // Wait for Identity to handle token
-      window.addEventListener("DOMContentLoaded", () => {
-        if (!isInviteOrRecovery && window.netlifyIdentity.currentUser() == null) {
-          // Not logged in and no token: CMS login will show
-          console.log("CMS login will show.");
-        }
-      });
-    </script>
-
-    <!-- Netlify CMS -->
     <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
   </body>
 </html>
